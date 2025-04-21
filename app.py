@@ -1,7 +1,9 @@
 import base64
 from flask import Flask, request, jsonify
 from PIL import Image
+import pytesseract
 import io
+import os
 
 app = Flask(__name__)
 
@@ -26,3 +28,8 @@ def ocr():
 
     except Exception as e:
         return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
+
+# ✅ This makes it work on Render
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))  # default to 5000 locally
+    app.run(host="0.0.0.0", port=port)
